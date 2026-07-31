@@ -1,7 +1,4 @@
-/* ==========================================================================
-   auth.js – Spotify OAuth 2.0 mit PKCE (kein Client Secret nötig)
-   Läuft komplett im Browser über chrome.identity.launchWebAuthFlow.
-   ========================================================================== */
+
 
 const SpotifyAuth = (() => {
   const AUTH_URL = "https://accounts.spotify.com/authorize";
