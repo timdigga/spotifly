@@ -1,179 +1,197 @@
 <div align="center">
 
-<img src="icons/icon128.png" width="96" height="96" alt="Spotifly logo" />
+<img src="icons/icon128.png" width="96" height="96" alt="Spotifly Logo">
 
-# 🎧 Spotifly
+# Spotifly
 
-**Control Spotify straight from your browser toolbar — see the current track, skip, search, like, tune volume, switch devices. No app switching.**
+A lightweight browser extension that lets you control Spotify without leaving your current tab.
 
-[![Chrome](https://img.shields.io/badge/Chrome-supported-4285F4?logo=googlechrome&logoColor=white)](https://chrome.google.com/webstore)
-[![Edge](https://img.shields.io/badge/Edge-supported-0078D7?logo=microsoftedge&logoColor=white)](https://microsoftedge.microsoft.com/addons)
-[![Manifest V3](https://img.shields.io/badge/Manifest-V3-34A853)](https://developer.chrome.com/docs/extensions/mv3/intro/)
-[![Spotify Web API](https://img.shields.io/badge/Spotify-Web%20API-1DB954?logo=spotify&logoColor=white)](https://developer.spotify.com/documentation/web-api)
-[![No dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)]()
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#-license)
-
-<sub>Vanilla JS · Zero build step · No trackers · OAuth 2.0 (PKCE)</sub>
+View what's playing, pause or skip songs, search tracks, switch devices, adjust the volume and more—all from the browser toolbar.
 
 </div>
 
 ---
 
-## ✨ Highlights
+## Features
 
-|  | Feature |
-|--|---------|
-| 🎵 | **Now playing** — title, artist, album art, live progress |
-| ⏯️ | **Full controls** — play/pause, previous, next |
-| 🔀 | **Shuffle & repeat** — including single-track repeat |
-| ❤️ | **Like** — save the current track to your library in one click |
-| 🔊 | **Volume + seek** — drag volume, click the bar to scrub |
-| 🔎 | **Search & play** — find any track and start it instantly |
-| 📱 | **Device switch** — move playback to phone, PC or speaker |
-| 🎨 | **Adaptive UI** — ambient blurred cover + accent color pulled from the art |
-| 🆓 | **Free-tier fallback** — reads & controls an open `open.spotify.com` tab when the API can't |
-| 🔐 | **Private** — PKCE login, no password or secret stored, everything runs locally |
-
----
-
-## 🖼️ Preview
-
-> _Drop your screenshots / GIF here_
-
-<div align="center">
-
-<!-- Replace these with real screenshots -->
-<img src="docs/player.png" width="280" alt="Player tab" />
-<img src="docs/search.png" width="280" alt="Search tab" />
-<img src="docs/settings.png" width="280" alt="Settings tab" />
-
-</div>
+- View the currently playing song
+- Album artwork with live progress
+- Play / Pause
+- Previous / Next track
+- Shuffle and Repeat
+- Save the current song to your library
+- Volume slider
+- Seek through the current song
+- Search and instantly play tracks
+- Switch between available Spotify devices
+- Automatically matches the UI colors to the album cover
+- Optional fallback using an open Spotify Web Player tab
+- OAuth 2.0 (PKCE) authentication
+- No external libraries or build tools
 
 ---
 
-## 🚀 Install (unpacked)
+
+## Installation
+
+Clone the repository:
 
 ```bash
-git clone https://github.com/<your-username>/spotifly.git
+git clone https://github.com/yourusername/spotifly.git
 ```
 
-**Chrome** → `chrome://extensions` → enable **Developer mode** → **Load unpacked** → pick the folder
-**Edge** → `edge://extensions` → enable **Developer mode** → **Load unpacked** → pick the folder
+### Chrome
 
-Pin it from the toolbar's puzzle icon and you're set.
+1. Open `chrome://extensions`
+2. Enable **Developer mode**
+3. Click **Load unpacked**
+4. Select the Spotifly folder
 
----
+### Edge
 
-## 🔑 One-time Spotify setup (~2 min)
+1. Open `edge://extensions`
+2. Enable **Developer mode**
+3. Click **Load unpacked**
+4. Select the Spotifly folder
 
-Every app that logs in to Spotify needs a free **Client ID** — there's no way around it. You only do this once.
-
-<details>
-<summary><b>Step-by-step</b></summary>
-
-<br>
-
-1. Click the extension icon — the setup screen shows a **Redirect URI**. Copy it.
-2. Open the **[Spotify Developer Dashboard](https://developer.spotify.com/dashboard)** → **Create app**.
-3. Fill in:
-   - **Redirect URI:** paste the copied URI **exactly** → **Add**
-   - **Which API/SDKs:** check **Web API**
-4. **Settings → User Management** → add your Spotify **display name + account email**.
-   > ⚠️ New apps run in *Development Mode*. Only allowlisted accounts can use the API — everyone else (including you) gets **403**. This step prevents that.
-5. Copy the **Client ID** → paste it into the extension → **Save & log in**.
-
-</details>
+After that you can pin the extension from the browser toolbar.
 
 ---
 
-## 🎛️ Usage
+## Spotify Setup
 
-| Tab | What you get |
-|-----|--------------|
-| **Player** | Now playing, like, shuffle/prev/play/next/repeat, volume, click-to-seek |
-| **Search** | Type → results → click to play |
-| **Settings** | Auto-open web player, pin tab, accent-from-cover, refresh rate, **device picker**, re-login / logout / reset |
+Spotify requires every application to use its own Client ID.
 
-> ℹ️ **Active device:** Spotify's API can only control a device that's already active. The extension can auto-open a pinned `open.spotify.com` tab in the background — play once there and control everything from the toolbar afterward.
+Setup only takes a few minutes.
+
+1. Open the extension.
+2. Copy the Redirect URI shown on the setup page.
+3. Go to the Spotify Developer Dashboard.
+4. Create a new application.
+5. Add the copied Redirect URI exactly as shown.
+6. Enable the **Web API**.
+7. Add your Spotify account under **User Management**.
+8. Copy the Client ID into the extension.
+9. Log in.
+
+If you don't add your Spotify account to the allowlist while the app is in Development Mode, Spotify will return **403 Forbidden**.
 
 ---
 
-## 🧩 How it works
+## Usage
+
+### Player
+
+- Current song
+- Playback controls
+- Shuffle & Repeat
+- Save track
+- Volume
+- Seek bar
+
+### Search
+
+Search for any track and start playing it immediately.
+
+### Settings
+
+- Choose playback device
+- Refresh interval
+- Accent color from album art
+- Automatically open Spotify Web Player
+- Login / Logout
+- Reset settings
+
+---
+
+## How it works
 
 ```
-┌───────────────┐   OAuth 2.0 (PKCE)   ┌────────────────────┐
-│  popup (UI)   │ ───────────────────► │  accounts.spotify  │
-│  vanilla JS   │ ◄─── access token ── │  (no secret)       │
-└──────┬────────┘                      └────────────────────┘
-       │ REST
-       ▼
-┌────────────────────┐        fallback         ┌──────────────────────┐
-│  api.spotify.com   │  ◄───────────────────►  │  open.spotify.com tab │
-│  (Premium control) │  (read/click DOM, Free) │  via scripting.exec   │
-└────────────────────┘                         └──────────────────────┘
+Popup
+   │
+   │ OAuth (PKCE)
+   ▼
+Spotify Accounts
+   │
+   ▼
+Spotify Web API
+   │
+   └── Playback control
+
+or
+
+Popup
+   │
+   ▼
+Spotify Web Player
+(reads and controls the page directly)
 ```
 
-- **API mode** — full control, requires Premium + allowlisted account.
-- **Web-player mode** — injects a tiny reader into an open Spotify tab; works on Free for display + play/skip.
+If Spotify Premium is available, the extension uses the official Spotify Web API.
+
+If not, it can optionally communicate with an open Spotify Web Player tab to provide basic playback information and controls.
 
 ---
 
-## 🗂️ Project structure
+## Project Structure
 
 ```
 spotifly/
-├── manifest.json     # Manifest V3 definition
-├── popup.html        # Setup / Login / Player • Search • Settings
-├── popup.css         # Dark, animated, Spotify-inspired styling
-├── popup.js          # Player logic, controls, search, devices, settings
-├── auth.js           # OAuth 2.0 (PKCE), token storage & refresh
-└── icons/            # Toolbar icons + cover placeholder
+├── manifest.json
+├── popup.html
+├── popup.css
+├── popup.js
+├── auth.js
+├── icons/
+└── docs/
 ```
 
 ---
 
-## 🛠️ Troubleshooting
+## Troubleshooting
 
-<details>
-<summary><b>403 on search / nothing shows up</b></summary>
+### 403 Forbidden
 
-Your account isn't allowlisted. Dashboard → your app → **Settings → User Management** → add yourself → log in again.
-</details>
+Your Spotify account probably isn't added under **User Management** in the Spotify Developer Dashboard.
 
-<details>
-<summary><b>"INVALID_CLIENT: Invalid redirect URI"</b></summary>
+### Invalid Redirect URI
 
-The Redirect URI in the dashboard must match the one in the popup **exactly**, trailing `/` included.
-</details>
+Make sure the Redirect URI in the Spotify Dashboard matches the one shown in the extension exactly.
 
-<details>
-<summary><b>Advanced controls are greyed out</b></summary>
+### Playback controls don't work
 
-Your account is Free (or you're in web-player mode). Skip/play via the API requires Premium — a Spotify rule, not the extension.
-</details>
+Spotify only allows playback control through the Web API for Premium accounts.
+
+Without Premium, use the optional Web Player mode.
 
 ---
 
-## 🗺️ Roadmap
+## Planned Features
 
-- [ ] Playlist quick-access
-- [ ] Keyboard shortcuts
-- [ ] Recently played
-- [ ] Light theme
-- [ ] Web Store release
-
----
-
-## 🤝 Contributing
-
-PRs and issues welcome! Fork, branch, and open a pull request. Keep it dependency-free and vanilla.
+- Playlists
+- Recently Played
+- Keyboard shortcuts
+- Light theme
+- Chrome Web Store release
 
 ---
 
-## 📄 License
+## Contributing
 
-Released under the **MIT License** — see [`LICENSE`](LICENSE).
+Pull requests are welcome.
+
+If you find a bug or have an idea for a new feature, feel free to open an issue.
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
 
 <div align="center">
-<sub>Not affiliated with Spotify AB. "Spotify" is a trademark of Spotify AB.</sub>
+
+Spotifly is an independent project and is not affiliated with or endorsed by Spotify AB.
+
 </div>
