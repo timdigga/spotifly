@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="popup.css" />
+  <title>Spotifly</title>
+</head>
+<body>
+  <div id="app">
+
+    <!-- ===== SETUP / ONBOARDING ===== -->
+    <section id="view-setup" class="view hidden">
+      <div class="brand">
+        <img src="icons/icon48.png" alt="" class="brand-logo" />
+        <h1>First-time setup</h1>
+      </div>
+      <p class="muted">One-time step: create a free Spotify app. After that it's just "Log in".</p>
+      <ol class="steps">
+        <li>Open the <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noreferrer">Spotify Developer Dashboard</a> and click <b>Create app</b>.</li>
+        <li>For <b>Redirect URI</b>, paste exactly this:
+          <div class="copybox">
+            <code id="redirect-uri">…</code>
+            <button id="copy-redirect" class="mini-btn" type="button">Copy</button>
+          </div>
+        </li>
+        <li>Under "Which API/SDKs" pick <b>Web API</b>, then save.</li>
+        <li><b>Important:</b> Settings → <b>User Management</b> → add yourself (name + Spotify email). Otherwise you'll get 403.</li>
+        <li>Copy the <b>Client ID</b> and paste it below.</li>
+      </ol>
+      <label class="field-label" for="client-id-input">Client ID</label>
+      <input id="client-id-input" type="text" placeholder="e.g. 4a2b1c…" autocomplete="off" spellcheck="false" />
+      <button id="save-client-id" class="primary-btn" type="button">Save &amp; log in</button>
+      <p id="setup-error" class="error hidden"></p>
+    </section>
+
+    <!-- ===== LOGIN ===== -->
+    <section id="view-login" class="view hidden">
+      <div class="brand">
+        <img src="icons/icon48.png" alt="" class="brand-logo" />
+        <h1>Spotifly</h1>
+      </div>
+      <p class="muted">Sign in with your Spotify account.</p>
+      <button id="login-btn" class="primary-btn" type="button">Log in with Spotify</button>
+      <button id="reset-setup" class="link-btn" type="button">Use a different Client ID</button>
+      <p id="login-error" class="error hidden"></p>
+    </section>
+
+    <!-- ===== LOADING ===== -->
+    <section id="view-loading" class="view">
+      <div class="spinner"></div>
+    </section>
+
+    <!-- ===== MAIN (Tabs) ===== -->
+    <section id="view-main" class="view hidden">
+
+      <!-- Ambient background from cover -->
+      <div id="ambient" class="ambient"></div>
+
+      <div class="panels">
+
+        <!-- --- PLAYER --- -->
+        <div id="tab-player" class="panel">
+          <div class="np">
+            <div class="cover-wrap">
+              <img id="cover" class="cover" alt="" src="icons/placeholder.png" />
+              <div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            </div>
+            <div class="np-info">
+              <div class="np-titlerow">
+                <div id="track-name" class="track-name">–</div>
+                <button id="like-btn" class="like" title="Save song" type="button">♡</button>
+              </div>
+              <div id="track-artist" class="track-artist">Nothing playing</div>
+            </div>
+          </div>
+
+          <div class="progress-wrap">
+            <span id="pos" class="time">0:00</span>
+            <div id="seek" class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+            <span id="dur" class="time">0:00</span>
+          </div>
+
+          <div class="controls">
+            <button id="shuffle-btn" class="ctrl small" title="Shuffle" type="button">🔀</button>
+            <button id="prev-btn" class="ctrl" title="Previous" type="button">⏮</button>
+            <button id="play-btn" class="ctrl ctrl-main" title="Play/Pause" type="button">⏵</button>
+            <button id="next-btn" class="ctrl" title="Next" type="button">⏭</button>
+            <button id="repeat-btn" class="ctrl small" title="Repeat" type="button">🔁</button>
+          </div>
+
+          <div class="volume-row">
+            <span class="vol-ic" id="vol-ic">🔊</span>
+            <input id="volume" class="volume" type="range" min="0" max="100" value="50" />
+          </div>
+
+          <p id="player-hint" class="hint hidden"></p>
+        </div>
+
+        <!-- --- SEARCH --- -->
+        <div id="tab-search" class="panel hidden">
+          <div class="search">
+            <input id="search-input" type="text" placeholder="Search for a song…" autocomplete="off" />
+            <div id="search-results" class="search-results"></div>
+          </div>
+        </div>
+
+        <!-- --- SETTINGS --- -->
+        <div id="tab-settings" class="panel hidden">
+          <div class="set-group">
+            <div class="set-row"><span>Account</span><span id="account-badge" class="badge">…</span></div>
+          </div>
+
+          <div class="set-group">
+            <div class="set-title">Behavior</div>
+            <label class="switch-row">Open web player automatically
+              <input type="checkbox" id="opt-autoopen" /></label>
+            <label class="switch-row">Pin background tab
+              <input type="checkbox" id="opt-pin" /></label>
+            <label class="switch-row">Accent color from cover
+              <input type="checkbox" id="opt-accent" /></label>
+            <label class="switch-row">Refresh
+              <select id="opt-interval" class="select">
+                <option value="2000">every 2 s</option>
+                <option value="5000">every 5 s</option>
+                <option value="10000">every 10 s</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="set-group">
+            <div class="set-title">Playback device</div>
+            <div id="device-list" class="device-list"><p class="muted small">Loading…</p></div>
+            <button id="refresh-devices" class="mini-btn" type="button">Refresh</button>
+          </div>
+
+          <div class="set-group">
+            <div class="set-title">Actions</div>
+            <button id="open-web" class="ghost-btn" type="button">Open web player</button>
+            <a class="ghost-btn" href="https://developer.spotify.com/dashboard" target="_blank" rel="noreferrer">Developer Dashboard</a>
+            <button id="relogin-btn" class="ghost-btn" type="button">Log in again</button>
+            <button id="logout-btn" class="ghost-btn danger" type="button">Log out</button>
+            <button id="reset-setup2" class="ghost-btn danger" type="button">Reset Client ID</button>
+          </div>
+
+          <div class="version">Spotifly · v1.1</div>
+        </div>
+
+      </div>
+
+      <!-- Tab bar -->
+      <nav class="tabbar">
+        <button class="tab active" data-tab="player" type="button"><span class="tab-ic">⏯</span>Player</button>
+        <button class="tab" data-tab="search" type="button"><span class="tab-ic">🔍</span>Search</button>
+        <button class="tab" data-tab="settings" type="button"><span class="tab-ic">⚙</span>Settings</button>
+      </nav>
+
+    </section>
+
+  </div>
+  <script src="auth.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
