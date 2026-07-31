@@ -1,6 +1,4 @@
-/* ==========================================================================
-   popup.js – Player, Suche, Optionen. API- und Web-Player-Modus.
-   ========================================================================== */
+
 
 const API = "https://api.spotify.com/v1";
 const $ = (id) => document.getElementById(id);
