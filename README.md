@@ -34,12 +34,6 @@ View what's playing, pause or skip songs, search tracks, switch devices, adjust 
 
 ## Installation
 
-Clone the repository:
-
-```bash
-git clone https://github.com/yourusername/spotifly.git
-```
-
 ### Chrome
 
 1. Open `chrome://extensions`
